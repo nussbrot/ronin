@@ -33,7 +33,7 @@ try:
     import pypandoc # @UnresolvedImport
     long_description = pypandoc.convert(os.path.join(HERE, 'README.md'), 'rst')
 except(IOError, ImportError):
-    with io.open(os.path.join(HERE, 'README.md')) as f:
+    with io.open(os.path.join(HERE, 'README.md'), encoding='utf8') as f:
         long_description = f.read()
 
 with io.open(os.path.join(HERE, 'ronin', 'version.py')) as f:
@@ -74,6 +74,5 @@ setup(
               'ronin.vala'),
     
     install_requires=(
-        'blessings>=1.6, <2.0',
         'colorama>=0.3.9, <2.0.0',
         'glob2>=0.5, <=2.0'))
