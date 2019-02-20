@@ -16,7 +16,6 @@
 
 from __future__ import unicode_literals
 from .unicode import to_str
-from blessings import Terminal
 import colorama, atexit
 
 
@@ -27,7 +26,12 @@ def _restore_terminal():
     
 atexit.register(_restore_terminal)
 
-terminal = Terminal()
+colors = {
+    'green': colorama.Fore.GREEN,
+    'red': colorama.Fore.RED,
+    'yellow': colorama.Fore.YELLOW,
+}
+reset_color = colorama.Style.RESET_ALL
 
 
 def announce(message, prefix='rōnin', color='green'):
@@ -39,9 +43,9 @@ def announce(message, prefix='rōnin', color='green'):
     :param color: color name
     :type color: str
     """
-    
-    if color:
-        prefix = getattr(terminal, color)(prefix)
+
+    if color and color in colors:
+        prefix = colors[color] + prefix + reset_color
     print('{}: {}'.format(prefix, message))
 
 
