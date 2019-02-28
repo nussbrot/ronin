@@ -212,6 +212,16 @@ def which(command, exception=True):
             raise WhichException("could not find '{}'".format(command))
         return None
 
+def shutil_which(command, exception=True):
+    import shutil
+    command = stringify(command)
+    found_command = shutil.which(command)
+    if found_command is None:
+        if exception:
+            raise WhichException("could not find '{}'".format(command))
+        return None
+    return found_command
+
 
 class WhichException(Exception):
     """
